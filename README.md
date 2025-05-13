@@ -1,19 +1,56 @@
 # ants-docker
 
-This repository contains a Dockerfile for ANTs 2.3.1 (Conda-based), plus:
-- HCP Pipelines clone
-- MNI152 template download
+A Dockerfile for **ANTs 2.3.1** (Conda-based) with:
 
-Build with:
+* **HCP Pipelines** cloned at `/opt/HCPpipelines`
+* **MNI152 templates** downloaded into `/atlas`
+
+---
+
+## Build
+
 ```bash
 docker build -t brainlife/ants-docker:2.3.1 .
 ```
 
-Run with:
+---
+
+## Run (Docker)
+
 ```bash
-docker run --rm -it brainlife/ants-docker:2.3.1 <your_command>
+docker run --rm -it \
+  brainlife/ants-docker:2.3.1 \
+  <your_command>
 ```
-Or with Singularity with:
+
+---
+
+## Run (Singularity)
+
+### From your local Docker image
+
 ```bash
-singularity exec -e docker://brainlife/ants:2.3.1 <your_command>
+singularity build ants-2.3.1.sif \
+  docker-daemon://brainlife/ants-docker:2.3.1
+
+singularity exec \
+  --bind $(pwd):/workspace \
+  ants-2.3.1.sif \
+  <your_command>
 ```
+
+### Directly from Docker Hub
+
+```bash
+singularity exec \
+  docker://brainlife/ants-docker:2.3.1 \
+  <your_command>
+```
+
+---
+
+## Contents
+
+* **ANTs 2.3.1** installed in a Conda env named `ants-2.3.1`
+* **HCP Pipelines** repo: `/opt/HCPpipelines`
+* **MNI152** templates unpacked under `/atlas`
