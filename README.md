@@ -11,5 +11,9 @@ docker build -t brainlife/ants-docker:2.3.1 .
 
 Run with:
 ```bash
-docker run --rm -it brainlife/ants-docker:2.3.1 bash
+docker run --rm -it brainlife/ants-docker:2.3.1 <your_command>
+```
+Or with Singularity with:
+```bash
+singularity exec -e docker://brainlife/ants:2.3.1 <your_command>
 ```
